@@ -31,7 +31,8 @@ print("[LOG] Success.")
 # UPS電源のシリアルポートを確認、接続
 print("[LOG] Connecting to UPS power unit...")
 ser = serial.Serial(port, 9600, timeout=None)
-ser.open()
+ser.close()
+ser.open() # 下で受信できないので、再オープン処理を入れてみる
 print("[LOG] Success.")
 
 # 接続確認テスト
@@ -53,7 +54,8 @@ while True:
     print("[LOG] Switched to battery supply.")
     # 安全なPCシャットダウンリクエストの送信
     print("[LOG] Trying to shutdown this PC...")
+    ser.close()
     subprocess.call("shutdown -t 1")
     break
 
-ser.close()
+ser.close()    

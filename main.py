@@ -13,9 +13,15 @@ TTL_INPUT_DC_DOWN = "LOW"
 # スタートアップ処理
 print("### Starting UPS Shutdowner... ###")
 
+# 再設定用リスト表示
+ports = serial.tools.list_ports.comports()
+devices = [info.device for info in ports]
+for i in range(len(devices)):
+  print("input %3d: open %s" % (i, devices[i]))
+
 # 設定ファイル読み込み
 print("[LOG] Loading settings.ini...")
-inifile = configparser.SafeConfigParser()
+inifile = configparser.ConfigParser()
 inifile.read("settings.ini")
 port = inifile.get("Proto1", "PORT")
 
@@ -24,7 +30,7 @@ print("[LOG] Connecting to UPS power unit...")
 ser = serial.Serial(port, 9600, timeout=None)
 
 # 接続確認テスト
-print("[LOG] Checking the connection...")
+print("[LOG] Testing the connection...")
 ser.write(str.encode("TEST"))
 
 # 接続失敗時エラー

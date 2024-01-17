@@ -26,20 +26,23 @@ print("[LOG] Loading settings.ini...")
 inifile = configparser.ConfigParser()
 inifile.read("settings.ini")
 port = inifile.get("Proto1", "PORT")
+timeout = inifile.get("Proto1", "TIMEOUT")
+baudrate = inifile.get("Proto1", "BAUDRATE")
 print("[LOG] Success.")
 
 # UPS電源のシリアルポートを確認、接続
 print("[LOG] Connecting to UPS power unit...")
-ser = serial.Serial(port, 9600, timeout=None)
+ser = serial.Serial(port, baudrate=baudrate, timeout=timeout)
 ser.close()
 ser.open() # 下で受信できないので、再オープン処理を入れてみる
 print("[LOG] Success.")
 
 # 接続確認テスト
-print("[LOG] Testing the connection...")
-ser.write(str.encode("TEST"))
-print(ser.readline())
-print("[LOG] Success.")
+# TODO: 接続確認テストをしたいけど、うまくいかない
+# print("[LOG] Testing the connection...")
+# ser.write(str.encode("TEST"))
+# print(ser.readline())
+# print("[LOG] Success.")
 
 # 接続失敗時エラー
 # print("Connection failed.")

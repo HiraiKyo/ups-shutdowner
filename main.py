@@ -19,7 +19,7 @@ print("[LOG] List of serial ports:")
 ports = list_ports.comports()
 devices = [info.device for info in ports]
 for i in range(len(devices)):
-  print("[LOG] input %3d: open %s" % (i, devices[i]))
+  print("[LOG]   input %3d: open %s" % (i, devices[i]))
 
 # 設定ファイル読み込み
 print("[LOG] Loading settings.ini...")
@@ -36,6 +36,7 @@ print("[LOG] Success.")
 # 接続確認テスト
 print("[LOG] Testing the connection...")
 ser.write(str.encode("TEST"))
+print(ser.readline())
 print("[LOG] Success.")
 
 # 接続失敗時エラー

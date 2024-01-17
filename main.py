@@ -1,5 +1,6 @@
 import configparser
 import serial
+from serial.tools import list_ports
 import subprocess
 
 # UPS電源設定項目
@@ -14,10 +15,11 @@ TTL_INPUT_DC_DOWN = "LOW"
 print("### Starting UPS Shutdowner... ###")
 
 # 再設定用リスト表示
-ports = serial.tools.list_ports.comports()
+print("[LOG] List of serial ports:")
+ports = list_ports.comports()
 devices = [info.device for info in ports]
 for i in range(len(devices)):
-  print("input %3d: open %s" % (i, devices[i]))
+  print("[LOG] input %3d: open %s" % (i, devices[i]))
 
 # 設定ファイル読み込み
 print("[LOG] Loading settings.ini...")

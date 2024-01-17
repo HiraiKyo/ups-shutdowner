@@ -31,14 +31,14 @@ print("[LOG] Success.")
 # UPS電源のシリアルポートを確認、接続
 print("[LOG] Connecting to UPS power unit...")
 ser = serial.Serial(port, 9600, timeout=None)
+ser.open()
 print("[LOG] Success.")
 
 # 接続確認テスト
-# TODO: 接続の動作確認テストを入れたいが、なんもレスポンスかえってこない
-# print("[LOG] Testing the connection...")
-# ser.write(str.encode("TEST"))
-# print(ser.readline())
-# print("[LOG] Success.")
+print("[LOG] Testing the connection...")
+ser.write(str.encode("TEST"))
+print(ser.readline())
+print("[LOG] Success.")
 
 # 接続失敗時エラー
 # print("Connection failed.")

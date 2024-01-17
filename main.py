@@ -26,19 +26,23 @@ print("[LOG] Loading settings.ini...")
 inifile = configparser.ConfigParser()
 inifile.read("settings.ini")
 port = inifile.get("Proto1", "PORT")
+print("[LOG] Success.")
 
 # UPS電源のシリアルポートを確認、接続
 print("[LOG] Connecting to UPS power unit...")
 ser = serial.Serial(port, 9600, timeout=None)
+print("[LOG] Success.")
 
 # 接続確認テスト
 print("[LOG] Testing the connection...")
 ser.write(str.encode("TEST"))
+print("[LOG] Success.")
 
 # 接続失敗時エラー
 # print("Connection failed.")
 
 # セーフシャットダウン処理
+print("[LOG] Listening...")
 while True:
   line = ser.readline()
   print("[LOG] From {}: {}".format(port, line))

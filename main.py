@@ -34,10 +34,11 @@ ser = serial.Serial(port, 9600, timeout=None)
 print("[LOG] Success.")
 
 # 接続確認テスト
-print("[LOG] Testing the connection...")
-ser.write(str.encode("TEST"))
-print(ser.readline())
-print("[LOG] Success.")
+# TODO: 接続の動作確認テストを入れたいが、なんもレスポンスかえってこない
+# print("[LOG] Testing the connection...")
+# ser.write(str.encode("TEST"))
+# print(ser.readline())
+# print("[LOG] Success.")
 
 # 接続失敗時エラー
 # print("Connection failed.")

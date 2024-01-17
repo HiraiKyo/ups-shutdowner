@@ -26,8 +26,8 @@ print("[LOG] Loading settings.ini...")
 inifile = configparser.ConfigParser()
 inifile.read("settings.ini")
 port = inifile.get("Proto1", "PORT")
-timeout = inifile.get("Proto1", "TIMEOUT")
-baudrate = inifile.get("Proto1", "BAUDRATE")
+timeout = int(inifile.get("Proto1", "TIMEOUT"))
+baudrate = int(inifile.get("Proto1", "BAUDRATE"))
 print("[LOG] Success.")
 
 # UPS電源のシリアルポートを確認、接続

@@ -2,11 +2,12 @@ import configparser
 import serial
 from serial.tools import list_ports
 import subprocess
+import time
 
 # UPS電源設定項目
 ## 電源からPCへの出力
-TTL_OUTPUT_AC_FINE = "LOW" 
-TTL_OUTPUT_AC_DOWN = "HIGH"
+CTS_OUTPUT_AC_FINE = True
+CTS_OUTPUT_AC_DOWN = False
 ## PCから電源への入力
 TTL_INPUT_DC_FINE = "HIGH"
 TTL_INPUT_DC_DOWN = "LOW"
@@ -50,15 +51,17 @@ print("[LOG] Success.")
 # セーフシャットダウン処理
 print("[LOG] Listening...")
 while True:
-  line = ser.readline()
-  print("[LOG] From {}: {}".format(port, line))
-  if line == TTL_OUTPUT_AC_DOWN:
+  # CTSピンが電源接続の状態を示す
+  is_powered = ser.cts
+  print("[LOG] Power State(CTS) : {}".format(is_powered))
+  if is_powered == CTS_OUTPUT_AC_DOWN:
     # バッテリー駆動への切り替え信号を受信
     print("[LOG] Switched to battery supply.")
     # 安全なPCシャットダウンリクエストの送信
     print("[LOG] Trying to shutdown this PC...")
     ser.close()
-    subprocess.call("shutdown -t 1")
+    subprocess.call("shutdown -t 10")
     break
+  time.sleep(5)
 
 ser.close()    

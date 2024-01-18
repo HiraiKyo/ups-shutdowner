@@ -60,7 +60,7 @@ while True:
     # 安全なPCシャットダウンリクエストの送信
     print("[LOG] Trying to shutdown this PC...")
     ser.close()
-    subprocess.call("shutdown -t 10")
+    subprocess.call(["shutdown", "+1"])
     break
   time.sleep(5)
 

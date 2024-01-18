@@ -29,6 +29,7 @@ inifile.read("settings.ini")
 port = inifile.get("Proto1", "PORT")
 timeout = int(inifile.get("Proto1", "TIMEOUT"))
 baudrate = int(inifile.get("Proto1", "BAUDRATE"))
+mode = inifile.get("Proto1", "MODE") # デバッグモード: debug, 通常:normal
 print("[LOG] Success.")
 
 # UPS電源のシリアルポートを確認、接続
@@ -60,7 +61,10 @@ while True:
     # 安全なPCシャットダウンリクエストの送信
     print("[LOG] Trying to shutdown this PC...")
     ser.close()
-    subprocess.call(["shutdown", "+1"])
+    if(mode == "debug"):
+      subprocess.call(["shutdown", "-t", "+10"])
+    else:
+      subprocess.call(["shutdown", "-h", "now"])
     break
   time.sleep(5)
 

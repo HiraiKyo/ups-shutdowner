@@ -11,7 +11,7 @@ Safe-shutdowner for UPS power unit by Nipron.
 
 ## スタートアップ登録
 
-TODO:
+1. `start.sh`をスタートアップに登録
 
 # 開発環境
 

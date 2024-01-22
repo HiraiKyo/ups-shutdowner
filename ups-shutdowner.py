@@ -36,8 +36,6 @@ print("[LOG] Success.")
 # UPS電源のシリアルポートを確認、接続
 print("[LOG] Connecting to UPS power unit...")
 ser = serial.Serial(port, baudrate=baudrate, timeout=timeout)
-ser.close()
-ser.open() # 下で受信できないので、再オープン処理を入れてみる
 print("[LOG] Success.")
 
 # 接続確認テスト
@@ -47,13 +45,13 @@ print("[LOG] Success.")
 # print(ser.readline())
 # print("[LOG] Success.")
 
-# 接続成功時、Arduinoに成功通知
+# Arduino接続
 arduino_serial = serial.Serial(arduino_port, baudrate=baudrate, timeout=timeout)
-arduino_serial.write("TEST")
 
 # セーフシャットダウン処理
 print("[LOG] Listening...")
 while True:
+  arduino_serial.write(b"shutdowner=1")
   # CTSピンが電源接続の状態を示す
   is_powered = ser.cts
   print("[LOG] Power State(CTS) : {}".format(is_powered))

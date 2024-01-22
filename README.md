@@ -2,6 +2,10 @@
 
 Safe-shutdowner for UPS power unit by Nipron.
 
+# Arduino 側送信パラメータ
+
+- `shutdowner=1` : 当プログラム動作中を通知
+
 # 利用前設定方法
 
 ## USB ポート指定

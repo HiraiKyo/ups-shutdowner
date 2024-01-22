@@ -11,7 +11,16 @@ Safe-shutdowner for UPS power unit by Nipron.
 
 ## スタートアップ登録
 
-1. `start.sh`をスタートアップに登録
+1. アプリケーション一覧の検索窓で`session`と検索
+2. 自動実行アプリケーション
+3. 追加を押して、`start.sh`をスタートアップに登録
+
+### `start.sh`の編集
+
+- `cd /home/USER/ups-shutdowner`でカレントディレクトリを移動しておかないと`settings.ini`を読み込めない
+- `python`と`ups-shutdowner.py`を絶対パスで入力する必要があるかも？
+
+PC 再起動テスト後、`ps -aux | grep ups`でプロセス要確認
 
 # 開発環境
 

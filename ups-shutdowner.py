@@ -30,6 +30,7 @@ port = inifile.get("Proto1", "PORT")
 timeout = int(inifile.get("Proto1", "TIMEOUT"))
 baudrate = int(inifile.get("Proto1", "BAUDRATE"))
 mode = inifile.get("Proto1", "MODE") # デバッグモード: debug, 通常:normal
+arduino_port = inifile.get("Proto1", "ARDUINO_PORT")
 print("[LOG] Success.")
 
 # UPS電源のシリアルポートを確認、接続
@@ -46,8 +47,9 @@ print("[LOG] Success.")
 # print(ser.readline())
 # print("[LOG] Success.")
 
-# 接続失敗時エラー
-# print("Connection failed.")
+# 接続成功時、Arduinoに成功通知
+arduino_serial = serial.Serial(arduino_port, baudrate=baudrate, timeout=timeout)
+arduino_serial.write("TEST")
 
 # セーフシャットダウン処理
 print("[LOG] Listening...")
@@ -62,7 +64,7 @@ while True:
     print("[LOG] Trying to shutdown this PC...")
     ser.close()
     if(mode == "debug"):
-      subprocess.call(["shutdown", "-t", "+10"])
+      subprocess.call(["shutdown", "-t", "1"])
     else:
       subprocess.call(["shutdown", "-h", "now"])
     break
